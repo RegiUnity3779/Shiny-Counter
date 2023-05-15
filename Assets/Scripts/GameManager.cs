@@ -6,10 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public UIManager uIManager;
     public Counter[] avaliableCounters;
-
+    public Count count;
     public GameObject buttonManager;
-    public int numberOfCounters;
-    public int totalCount;
 
     private void OnEnable()
     {
@@ -27,18 +25,18 @@ public class GameManager : MonoBehaviour
 
     public void UpdateCounterNumber(int counter)
     {
-        numberOfCounters = counter;
+        count.numberOfCounters = counter;
 
         
 
         for (int i = 0; i < avaliableCounters.Length; i++)
         {
 
-            if ( i < numberOfCounters)
+            if ( i < count.numberOfCounters)
             {
                 if (!avaliableCounters[i].gameObject.activeInHierarchy)
                 {
-                    avaliableCounters[i].curRate = 1;
+                    avaliableCounters[i].data.curRate = 1;
                     avaliableCounters[i].UpdateRateText();
                     avaliableCounters[i].ResetCounter();
                     avaliableCounters[i].gameObject.SetActive(true);
@@ -65,33 +63,33 @@ public class GameManager : MonoBehaviour
         {
             if (avaliableCounters[i].gameObject.activeInHierarchy)
             {
-                a += avaliableCounters[i].curCount;
+                a += avaliableCounters[i].data.curCount;
             }
         }
 
-        totalCount = a;
+        count.totalCount = a;
 
         if (a < 0)
         {
-            totalCount = 0;
+            count.totalCount = 0;
         }
         else
         {
-            totalCount = a;
+            count.totalCount = a;
         }
         
-        EventManager.UpdateTotalText(totalCount);
+        EventManager.UpdateTotalText(count.totalCount);
 
     }
     public void ResetTotalCounter()
     {
-        totalCount = 0;
-        EventManager.UpdateTotalText(totalCount);
+        count.totalCount = 0;
+        EventManager.UpdateTotalText(count.totalCount);
     }
 
     public void UpdateCounterNameSetting()
     {
-        EventManager.UpdateSettingInputField(numberOfCounters);
+        EventManager.UpdateSettingInputField(count.numberOfCounters);
 
     }
 

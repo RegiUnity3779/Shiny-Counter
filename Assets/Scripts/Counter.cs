@@ -7,20 +7,19 @@ using TMPro;
 public class Counter : MonoBehaviour
 {
     public Button countButton;
-    public int curCount;
-    public int curRate;
+    public CounterData data;
+  
     public TextMeshProUGUI curCountText;
     public TextMeshProUGUI rateText;
     public Button resetButton;
-    
-    public string buttonName;
+
     public TextMeshProUGUI nameText;
     // Start is called before the first frame update
     void Start()
     {
         
         
-        curRate = 1;
+        
         UpdateCounterText();
         UpdateRateText();
         ButtonNameUI();
@@ -30,28 +29,28 @@ public class Counter : MonoBehaviour
 
     public void IncreaseRate()
     {
-        curRate++;
+        data.curRate++;
         UpdateRateText();
     }
     public void DecreaseRate()
     {
-        curRate--;
+        data.curRate--;
         UpdateRateText();
     }
 
     public void IncreaseCount()
     {
-        if(curRate == 0)
+        if(data.curRate == 0)
         {
             return;
         }
-        if((curCount + curRate) < 0)
+        if((data.curCount + data.curRate) < 0)
         {
-            curCount = 0;
+            data.curCount = 0;
         }
         else
         {
-            curCount += curRate;
+            data.curCount += data.curRate;
         }
         
         UpdateCounterText();
@@ -60,16 +59,16 @@ public class Counter : MonoBehaviour
     }
     public void UpdateCounterText()
     {
-        curCountText.text = $"{curCount}";
+        curCountText.text = $"{data.curCount}";
     }
     public void UpdateRateText()
     {
-        rateText.text = $"{curRate}";
+        rateText.text = $"{data.curRate}";
     }
     public void ResetCounter()
     {
-        curCount = 0;
-        curRate = 1;
+        data.curCount = 0;
+        data.curRate = 1;
         UpdateCounterText();
         UpdateRateText();
         EventManager.TotalCount();
@@ -77,14 +76,14 @@ public class Counter : MonoBehaviour
 
     public void UpdateButtonName( TMP_InputField field )
     {
-        buttonName = field.text;
-        nameText.text = buttonName;
+        data.buttonName = field.text;
+        nameText.text = data.buttonName;
         
 
     }
     public void ButtonNameUI()
     {
-        nameText.text = buttonName;
+        nameText.text = data.buttonName;
     }
 
 
